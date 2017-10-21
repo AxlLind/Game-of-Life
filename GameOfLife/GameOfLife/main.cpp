@@ -2,18 +2,17 @@
 
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 800
-
 #define CELL_SIZE 4
+
 #define WIDTH  WINDOW_WIDTH / CELL_SIZE
 #define HEIGHT WINDOW_WIDTH / CELL_SIZE
-
 
 #define DEAD   75
 #define ALIVE  0
 
 sf::Uint8 *cells      = new sf::Uint8[WIDTH * HEIGHT];
 sf::Uint8 *cells_prev = new sf::Uint8[WIDTH * HEIGHT];
-sf::Uint8 *pixels     = new sf::Uint8[4 * CELL_SIZE * CELL_SIZE * WIDTH * HEIGHT];
+sf::Uint8 *pixels     = new sf::Uint8[4 * CELL_SIZE * WIDTH * CELL_SIZE * HEIGHT];
 
 int get_index(int x, int y) {
     return y * WIDTH + x;
@@ -37,9 +36,8 @@ void update_cell(int x, int y) {
     int i = get_index(x,y);
     
     if (cells[i] == DEAD) {
-        if (num_adjacent == 3) {
+        if (num_adjacent == 3)
             cells[i] = ALIVE;
-        }
     } else if (num_adjacent < 2 || num_adjacent > 3) {
         cells[i] = DEAD;
     }
@@ -58,17 +56,13 @@ void draw_cell(int x, int y, sf::Uint8 color) {
     }
 }
 
-void update() {
+void update_simulation() {
     std::copy(cells, cells + WIDTH * HEIGHT, cells_prev);
-    
     for (int x = 1; x < WIDTH-1; ++x) {
         for (int y = 1; y < HEIGHT-1; ++y) {
             update_cell(x,y);
-        }
-    }
-    for (int x = 0; x < WIDTH; ++x) {
-        for (int y = 0; y < HEIGHT; y++) {
-            draw_cell(x,y, cells[get_index(x, y)]);
+            draw_cell(x,y,cells[get_index(x, y)]);
+            // by skipping the drawing of border cells we get a black border
         }
     }
 }
@@ -81,6 +75,7 @@ int main() {
         cells[i] = rand() % 2 == 0 ? ALIVE : DEAD;
     }
     
+    sf::Event e;
     sf::Sprite sprite;
     sf::Texture txt;
     txt.create(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -89,24 +84,15 @@ int main() {
     bool paused = false;
     
     while(window.isOpen()) {
-        sf::Event e;
         while(window.pollEvent(e)) {
-            switch (e.type) {
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-                case sf::Event::MouseButtonPressed:
-                    paused = !paused;
-                    break;
-                default:
-                    break;
-            }
+            if (e.type == sf::Event::Closed) window.close();
+            if (e.type == sf::Event::MouseButtonPressed) paused = !paused;
         }
-        sf::sleep(sf::milliseconds(20));
+        sf::sleep(sf::milliseconds(20)); // too fast otherwise
         
         if (paused) continue;
         
-        update();
+        update_simulation();
         txt.update(pixels);
         sprite.setTexture(txt);
         window.draw(sprite);
