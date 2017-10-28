@@ -1,0 +1,296 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		69302AB11FA4B94600A8458D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69302AB01FA4B94600A8458D /* main.cpp */; };
+		69302ABD1FA4B98F00A8458D /* libsfml-audio.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302AB81FA4B98F00A8458D /* libsfml-audio.2.4.2.dylib */; };
+		69302ABE1FA4B98F00A8458D /* libsfml-graphics.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302AB91FA4B98F00A8458D /* libsfml-graphics.2.4.2.dylib */; };
+		69302ABF1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302ABA1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib */; };
+		69302AC01FA4B98F00A8458D /* libsfml-system.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302ABB1FA4B98F00A8458D /* libsfml-system.2.4.2.dylib */; };
+		69302AC11FA4B98F00A8458D /* libsfml-window.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302ABC1FA4B98F00A8458D /* libsfml-window.2.4.2.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		69302AAB1FA4B94600A8458D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		69302AAD1FA4B94600A8458D /* Julia-Set */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Julia-Set"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69302AB01FA4B94600A8458D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		69302AB81FA4B98F00A8458D /* libsfml-audio.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-audio.2.4.2.dylib"; path = "../SFML/lib/libsfml-audio.2.4.2.dylib"; sourceTree = "<group>"; };
+		69302AB91FA4B98F00A8458D /* libsfml-graphics.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-graphics.2.4.2.dylib"; path = "../SFML/lib/libsfml-graphics.2.4.2.dylib"; sourceTree = "<group>"; };
+		69302ABA1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.4.2.dylib"; path = "../SFML/lib/libsfml-network.2.4.2.dylib"; sourceTree = "<group>"; };
+		69302ABB1FA4B98F00A8458D /* libsfml-system.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-system.2.4.2.dylib"; path = "../SFML/lib/libsfml-system.2.4.2.dylib"; sourceTree = "<group>"; };
+		69302ABC1FA4B98F00A8458D /* libsfml-window.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-window.2.4.2.dylib"; path = "../SFML/lib/libsfml-window.2.4.2.dylib"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		69302AAA1FA4B94600A8458D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69302ABD1FA4B98F00A8458D /* libsfml-audio.2.4.2.dylib in Frameworks */,
+				69302ABE1FA4B98F00A8458D /* libsfml-graphics.2.4.2.dylib in Frameworks */,
+				69302ABF1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib in Frameworks */,
+				69302AC01FA4B98F00A8458D /* libsfml-system.2.4.2.dylib in Frameworks */,
+				69302AC11FA4B98F00A8458D /* libsfml-window.2.4.2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		69302AA41FA4B94600A8458D = {
+			isa = PBXGroup;
+			children = (
+				69302AAF1FA4B94600A8458D /* Julia-Set */,
+				69302AAE1FA4B94600A8458D /* Products */,
+				69302AB71FA4B98F00A8458D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		69302AAE1FA4B94600A8458D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				69302AAD1FA4B94600A8458D /* Julia-Set */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		69302AAF1FA4B94600A8458D /* Julia-Set */ = {
+			isa = PBXGroup;
+			children = (
+				69302AB01FA4B94600A8458D /* main.cpp */,
+			);
+			path = "Julia-Set";
+			sourceTree = "<group>";
+		};
+		69302AB71FA4B98F00A8458D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69302AB81FA4B98F00A8458D /* libsfml-audio.2.4.2.dylib */,
+				69302AB91FA4B98F00A8458D /* libsfml-graphics.2.4.2.dylib */,
+				69302ABA1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib */,
+				69302ABB1FA4B98F00A8458D /* libsfml-system.2.4.2.dylib */,
+				69302ABC1FA4B98F00A8458D /* libsfml-window.2.4.2.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		69302AAC1FA4B94600A8458D /* Julia-Set */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69302AB41FA4B94600A8458D /* Build configuration list for PBXNativeTarget "Julia-Set" */;
+			buildPhases = (
+				69302AA91FA4B94600A8458D /* Sources */,
+				69302AAA1FA4B94600A8458D /* Frameworks */,
+				69302AAB1FA4B94600A8458D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Julia-Set";
+			productName = "Julia-Set";
+			productReference = 69302AAD1FA4B94600A8458D /* Julia-Set */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		69302AA51FA4B94600A8458D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Axel Lindeberg";
+				TargetAttributes = {
+					69302AAC1FA4B94600A8458D = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = L64GF8Q5XJ;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 69302AA81FA4B94600A8458D /* Build configuration list for PBXProject "Julia-Set" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 69302AA41FA4B94600A8458D;
+			productRefGroup = 69302AAE1FA4B94600A8458D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				69302AAC1FA4B94600A8458D /* Julia-Set */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		69302AA91FA4B94600A8458D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69302AB11FA4B94600A8458D /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		69302AB21FA4B94600A8458D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../SFML/include";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		69302AB31FA4B94600A8458D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../SFML/include";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		69302AB51FA4B94600A8458D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = L64GF8Q5XJ;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../SFML/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		69302AB61FA4B94600A8458D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = L64GF8Q5XJ;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../SFML/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		69302AA81FA4B94600A8458D /* Build configuration list for PBXProject "Julia-Set" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69302AB21FA4B94600A8458D /* Debug */,
+				69302AB31FA4B94600A8458D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69302AB41FA4B94600A8458D /* Build configuration list for PBXNativeTarget "Julia-Set" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69302AB51FA4B94600A8458D /* Debug */,
+				69302AB61FA4B94600A8458D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 69302AA51FA4B94600A8458D /* Project object */;
+}
