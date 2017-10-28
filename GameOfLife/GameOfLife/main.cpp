@@ -23,8 +23,8 @@ int adjacent(int x, int y) {
     if ( cells_prev[ get_index(x-1, y-1) ] == ALIVE ) ++num_adjacent;
     if ( cells_prev[ get_index(x  , y-1) ] == ALIVE ) ++num_adjacent;
     if ( cells_prev[ get_index(x+1, y-1) ] == ALIVE ) ++num_adjacent;
-    if ( cells_prev[ get_index(x-1, y)   ] == ALIVE ) ++num_adjacent;
-    if ( cells_prev[ get_index(x+1, y)   ] == ALIVE ) ++num_adjacent;
+    if ( cells_prev[ get_index(x-1, y  ) ] == ALIVE ) ++num_adjacent;
+    if ( cells_prev[ get_index(x+1, y  ) ] == ALIVE ) ++num_adjacent;
     if ( cells_prev[ get_index(x-1, y+1) ] == ALIVE ) ++num_adjacent;
     if ( cells_prev[ get_index(x  , y+1) ] == ALIVE ) ++num_adjacent;
     if ( cells_prev[ get_index(x+1, y+1) ] == ALIVE ) ++num_adjacent;
