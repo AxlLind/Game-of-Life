@@ -1,47 +1,62 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-#define WINDOW_SIZE 800
-#define ITERATIONS 255
-#define MANDELBROTH 5
+#define WINDOW_SIZE 800 // in pixels
+#define ITERATIONS  200
+#define MANDELBROT  100 // arbitrary value outside our viewing-axies
 
 sf::Uint8 *cells =  new sf::Uint8[WINDOW_SIZE * WINDOW_SIZE];
 sf::Uint8 *pixels = new sf::Uint8[WINDOW_SIZE * WINDOW_SIZE * 4];
 
+bool draw = true, follow_mouse = false, color_mode = true;
+double axies_size = 2.0;
+double julia_constant_a = MANDELBROT, julia_constant_b = MANDELBROT;
 
-bool draw = true, follow_mouse = false, color_mode = false;
-double max = 2.0, min = -max;
-double set_a = MANDELBROTH, set_b = MANDELBROTH;
 
-double pixel_to_coord(int x) {
-    return (max - min) * double(x) / WINDOW_SIZE + min;
+/* Point (x,y) to index for that point in a 1d-array */
+int point_to_index(int x, int y) {
+    return y * WINDOW_SIZE + x;
 }
 
+/* Maps a pixel number [0..WINDOW_SIZE] to [-axies_size..axies_size] */
+double pixel_to_coord(int x) {
+    return axies_size * (2 * double(x) / WINDOW_SIZE - 1);
+}
+
+/* Returns the number of iterations until the point (x,y) will diverge */
 int iterations(double x, double y) {
-    double x_offset = (set_a == MANDELBROTH ? x : set_a);
-    double y_offset = (set_b == MANDELBROTH ? y : set_b);
+    double x_offset = (julia_constant_a == MANDELBROT ? x : julia_constant_a);
+    double y_offset = (julia_constant_b == MANDELBROT ? y : julia_constant_b);
     double a = x, b = y;
+    double a_sqr = a*a, b_sqr = b*b;
     
     int n = 0;
-    while (n < ITERATIONS && a*a + b*b < 4.0) {
-        double tmp = 2*a*b + y_offset;
-        a = a*a - b*b + x_offset;
-        b = tmp;
+    while (n < ITERATIONS && a_sqr + b_sqr < 4.0) {
+        b *= a;
+        b += b + y_offset; // *2 + y_offset
+        a = a_sqr - b_sqr + x_offset;
+        a_sqr = a*a; b_sqr = b*b;
         n++;
     }
-
     return n;
 }
 
+/* Calculate the number of iterations for every pixel */
 void calculate_set() {
-    for (int y = 0; y < WINDOW_SIZE; ++y) {
+    int index = 0;
+    for (int y = 0; y < WINDOW_SIZE/2; ++y) {
         for (int x = 0; x < WINDOW_SIZE; ++x) {
-            double a = pixel_to_coord(x);
-            double b = pixel_to_coord(y);
-            cells[y*WINDOW_SIZE + x] = iterations(a, b);
+            double val = iterations( pixel_to_coord(x) , pixel_to_coord(y) );
+            cells[index++] = val;
+            // julia-set symmetric, mirrored and mandelbrot is symmetric along x=0
+            int symmetric_x = julia_constant_a == MANDELBROT ? x : WINDOW_SIZE-x;
+            cells[point_to_index(symmetric_x, WINDOW_SIZE-y-1)] = val;
         }
     }
 }
 
+/* If in color-mode we map a value [0..ITERATIONS] to an RGB-color
+   in the range blue to red, otherwise the grayscale value */
 void calc_rgb(int *color, int val) {
     if (!color_mode) {
         color[0] = val * 255 / ITERATIONS;
@@ -67,43 +82,36 @@ void calc_rgb(int *color, int val) {
     color[0] = int(255*r); color[1] = int(255*g); color[2] = int(255*b);
 }
 
+/* calculate the color of every pixel based on the number of iterations of that point */
 void calculate_pixels() {
+    int index = 0;
     for (int i = 0; i < WINDOW_SIZE * WINDOW_SIZE; ++i) {
         int color[] = {0,0,0};
         if (cells[i] != ITERATIONS && cells[i] != 0) calc_rgb(color, cells[i]);
-        
-        int index = 4 * i;
         pixels[index++] = color[0];
         pixels[index++] = color[1];
         pixels[index++] = color[2];
-        pixels[index] = 255;
+        pixels[index++] = 255;
     }
 }
 
-void redraw() {
-    calculate_set();
-    calculate_pixels();
-    draw = true;
+/* Scales the coordinate-axies by a specified factor */
+void scale_axies(double scl) {
+    axies_size *= scl;
+    if (axies_size > 2.0) axies_size = 2.0;
+    if (axies_size < 0.5) axies_size = 0.5;
 }
 
-void scale_viewer(double scl) {
-    min *= scl;
-    max *= scl;
-    if (min < -2)   min = -2;
-    if (max >  2)   max =  2;
-    if (min > -0.5) min = -0.5;
-    if (max <  0.5) max =  0.5;
-}
-
+/* Handels the various key-presses */
 void handle_key_press(sf::Keyboard::Key code) {
     switch (code) {
         case sf::Keyboard::W: // fall
         case sf::Keyboard::Up:
-            scale_viewer(1.0/1.1);
+            scale_axies(1.0/1.1);
             break;
         case sf::Keyboard::S: // fall
         case sf::Keyboard::Down:
-            scale_viewer(1.1);
+            scale_axies(1.1);
             break;
         case sf::Keyboard::M:
             follow_mouse = !follow_mouse;
@@ -112,55 +120,46 @@ void handle_key_press(sf::Keyboard::Key code) {
             color_mode = !color_mode;
             break;
         case sf::Keyboard::Escape:
-            set_a = MANDELBROTH;
-            set_b = MANDELBROTH;
-            max =  2.0;
-            min = -max;
-            color_mode = false;
+            // reset to initial state
+            julia_constant_a = MANDELBROT;
+            julia_constant_b = MANDELBROT;
+            axies_size =  2.0;
+            color_mode = true;
             follow_mouse = false;
             break;
         default: break;
     }
+    draw = true;
 }
 
 int main() {
-    sf::Vector2i mouse_pos;
-    sf::Event e;
-    sf::Sprite sprite;
     sf::Texture txt;
     txt.create(WINDOW_SIZE, WINDOW_SIZE);
-    
     sf::RenderWindow window(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Julia-set Viewer");
-    redraw();
+    sf::Event e;
     while(window.isOpen()) {
         while(window.pollEvent(e)) {
-            switch (e.type) {
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-                case sf::Event::KeyPressed:
-                    handle_key_press(e.key.code);
-                    redraw();
-                    break;
-                default: break;
+            if (e.type == sf::Event::Closed)
+                window.close();
+            if (e.type == sf::Event::KeyPressed)
+                handle_key_press(e.key.code);
+            if (e.type == sf::Event::MouseMoved && follow_mouse) {
+                sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+                julia_constant_a = pixel_to_coord(mouse_pos.x);
+                julia_constant_b = pixel_to_coord(mouse_pos.y);
+                draw = true;
             }
         }
-        if (follow_mouse) {
-            mouse_pos = sf::Mouse::getPosition(window);
-            set_a = pixel_to_coord(mouse_pos.x);
-            set_b = pixel_to_coord(mouse_pos.y);
-            redraw();
-        }
-        
         if (!draw) continue;
         
+        calculate_set();
+        calculate_pixels();
         txt.update(pixels);
-        sprite.setTexture(txt);
-        window.draw(sprite);
-        
+        sf::Sprite s;
+        s.setTexture(txt);
+        window.draw(s);
         window.display();
         draw = false;
     }
-    
     return 0;
 }
