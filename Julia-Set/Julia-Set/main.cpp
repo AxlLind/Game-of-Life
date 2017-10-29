@@ -97,12 +97,12 @@ void scale_viewer(double scl) {
 
 void handle_key_press(sf::Keyboard::Key code) {
     switch (code) {
-        case sf::Keyboard::Up: // fall
-        case sf::Keyboard::W:
+        case sf::Keyboard::W: // fall
+        case sf::Keyboard::Up:
             scale_viewer(1.0/1.1);
             break;
-        case sf::Keyboard::Down: // fall
-        case sf::Keyboard::S:
+        case sf::Keyboard::S: // fall
+        case sf::Keyboard::Down:
             scale_viewer(1.1);
             break;
         case sf::Keyboard::M:
