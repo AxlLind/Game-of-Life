@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <thread>
 
 #define WINDOW_SIZE 800 // in pixels
 #define ITERATIONS  200
@@ -8,18 +8,17 @@
 sf::Uint8 *cells =  new sf::Uint8[WINDOW_SIZE * WINDOW_SIZE];
 sf::Uint8 *pixels = new sf::Uint8[WINDOW_SIZE * WINDOW_SIZE * 4];
 
-bool draw = true, follow_mouse = false, color_mode = true;
-double axies_size = 2.0;
+bool   draw = true, color_mode = true, follow_mouse = false;
 double julia_constant_a = MANDELBROT, julia_constant_b = MANDELBROT;
-
+double axies_size = 2.0;
 
 /* Point (x,y) to index for that point in a 1d-array */
-int point_to_index(int x, int y) {
+inline int point_to_index(int x, int y) {
     return y * WINDOW_SIZE + x;
 }
 
 /* Maps a pixel number [0..WINDOW_SIZE] to [-axies_size..axies_size] */
-double pixel_to_coord(int x) {
+inline double pixel_to_coord(int x) {
     return axies_size * (2 * double(x) / WINDOW_SIZE - 1);
 }
 
@@ -41,18 +40,31 @@ int iterations(double x, double y) {
     return n;
 }
 
-/* Calculate the number of iterations for every pixel */
-void calculate_set() {
-    int index = 0;
-    for (int y = 0; y < WINDOW_SIZE/2; ++y) {
+/* Calculate the number of iterations for parts of the image */
+void calculate_partial(int y_start, int y_end) {
+    int index = point_to_index(0, y_start);
+    for (int y = y_start; y < y_end; ++y) {
         for (int x = 0; x < WINDOW_SIZE; ++x) {
             double val = iterations( pixel_to_coord(x) , pixel_to_coord(y) );
-            cells[index++] = val;
-            // julia-set symmetric, mirrored and mandelbrot is symmetric along x=0
             int symmetric_x = julia_constant_a == MANDELBROT ? x : WINDOW_SIZE-x;
-            cells[point_to_index(symmetric_x, WINDOW_SIZE-y-1)] = val;
+            cells[index++] = val;
+            cells[ point_to_index(symmetric_x, WINDOW_SIZE-y-1) ] = val;
+            // julia-set symmetric, mirrored and mandelbrot is symmetric along x=0
         }
     }
+}
+
+/* Calculates the number of iterations for every pixel using multithreading */
+void calculate_set(int num_threads) {
+    std::thread threads[num_threads];
+    int start = 0, step = (WINDOW_SIZE / 2) / num_threads;
+    for (int i = 0; i < num_threads-1; ++i) {
+        threads[i] = std::thread(calculate_partial, start, start + step);
+        start += step;
+    }
+    threads[num_threads-1] = std::thread(calculate_partial, start, WINDOW_SIZE/2);
+    for (int i = 0; i < num_threads; ++i)
+        threads[i].join(); // wait for every thread
 }
 
 /* If in color-mode we map a value [0..ITERATIONS] to an RGB-color
@@ -65,13 +77,13 @@ void calc_rgb(int *color, int val) {
     }
     
     double r = 1.0, g = 1.0, b = 1.0, iter = double(val);
-    if (iter < (0.2 * ITERATIONS)) {
+    if (iter < 0.2 * ITERATIONS) {
         r = 0;
         g = 4.0 * iter / ITERATIONS;
-    } else if (iter < (0.4 * ITERATIONS)) {
+    } else if (iter < 0.4 * ITERATIONS) {
         r = 0;
         b = 1.0 + 4 * (0.25 * ITERATIONS - iter) / ITERATIONS;
-    } else if (iter < (0.5 * ITERATIONS)) {
+    } else if (iter < 0.5 * ITERATIONS) {
         r = 4 * (iter - 0.5 * ITERATIONS) / ITERATIONS;
         b = 0;
     } else {
@@ -133,10 +145,10 @@ void handle_key_press(sf::Keyboard::Key code) {
 }
 
 int main() {
-    sf::Texture txt;
+    sf::Texture txt; sf::Event e; sf::Sprite s;
     txt.create(WINDOW_SIZE, WINDOW_SIZE);
     sf::RenderWindow window(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Julia-set Viewer");
-    sf::Event e;
+    unsigned int num_threads = std::thread::hardware_concurrency();
     while(window.isOpen()) {
         while(window.pollEvent(e)) {
             if (e.type == sf::Event::Closed)
@@ -152,10 +164,9 @@ int main() {
         }
         if (!draw) continue;
         
-        calculate_set();
+        calculate_set(num_threads);
         calculate_pixels();
         txt.update(pixels);
-        sf::Sprite s;
         s.setTexture(txt);
         window.draw(s);
         window.display();
