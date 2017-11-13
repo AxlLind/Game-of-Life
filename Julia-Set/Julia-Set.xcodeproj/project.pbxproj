@@ -13,6 +13,7 @@
 		69302ABF1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302ABA1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib */; };
 		69302AC01FA4B98F00A8458D /* libsfml-system.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302ABB1FA4B98F00A8458D /* libsfml-system.2.4.2.dylib */; };
 		69302AC11FA4B98F00A8458D /* libsfml-window.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69302ABC1FA4B98F00A8458D /* libsfml-window.2.4.2.dylib */; };
+		6958D1461FACD01500A14D84 /* kernel.cl in Sources */ = {isa = PBXBuildFile; fileRef = 6958D1451FACD01500A14D84 /* kernel.cl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,8 @@
 		69302ABA1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.4.2.dylib"; path = "../SFML/lib/libsfml-network.2.4.2.dylib"; sourceTree = "<group>"; };
 		69302ABB1FA4B98F00A8458D /* libsfml-system.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-system.2.4.2.dylib"; path = "../SFML/lib/libsfml-system.2.4.2.dylib"; sourceTree = "<group>"; };
 		69302ABC1FA4B98F00A8458D /* libsfml-window.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-window.2.4.2.dylib"; path = "../SFML/lib/libsfml-window.2.4.2.dylib"; sourceTree = "<group>"; };
+		6958D1451FACD01500A14D84 /* kernel.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = kernel.cl; sourceTree = "<group>"; };
+		6958D1471FAF210700A14D84 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,7 @@
 		69302AAF1FA4B94600A8458D /* Julia-Set */ = {
 			isa = PBXGroup;
 			children = (
+				6958D1451FACD01500A14D84 /* kernel.cl */,
 				69302AB01FA4B94600A8458D /* main.cpp */,
 			);
 			path = "Julia-Set";
@@ -81,6 +85,7 @@
 		69302AB71FA4B98F00A8458D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6958D1471FAF210700A14D84 /* OpenCL.framework */,
 				69302AB81FA4B98F00A8458D /* libsfml-audio.2.4.2.dylib */,
 				69302AB91FA4B98F00A8458D /* libsfml-graphics.2.4.2.dylib */,
 				69302ABA1FA4B98F00A8458D /* libsfml-network.2.4.2.dylib */,
@@ -149,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69302AB11FA4B94600A8458D /* main.cpp in Sources */,
+				6958D1461FACD01500A14D84 /* kernel.cl in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +295,7 @@
 				69302AB61FA4B94600A8458D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
